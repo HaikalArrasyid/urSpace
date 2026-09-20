@@ -1,0 +1,1067 @@
+{
+    "info": {
+        "name": "UKK Reserve API Contract",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "[GET] \/api\/health",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/health",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "health"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/auth\/profile",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/auth\/profile",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "auth",
+                        "profile"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/spaces\/types",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/spaces\/types",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "spaces",
+                        "types"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/spaces\/availability",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/spaces\/availability",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "spaces",
+                        "availability"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/spaces",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/spaces",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "spaces"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/spaces\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/spaces\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "spaces",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/diskon\/active",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/diskon\/active",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "diskon",
+                        "active"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/diskon\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/diskon\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "diskon",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/reservasi\/my",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi\/my",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi",
+                        "my"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/reservasi\/my\/history",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi\/my\/history",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi",
+                        "my",
+                        "history"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/reservasi\/{id}\/e-ticket",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi\/{id}\/e-ticket",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi",
+                        "{id}",
+                        "e-ticket"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/reservasi\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/profile",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/profile",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "profile"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/members",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/members",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "members"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/members\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/members\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "members",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/spaces",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/spaces",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "spaces"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/spaces\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/spaces\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "spaces",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/diskon",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/diskon",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "diskon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/diskon\/{id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/diskon\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "diskon",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/reservasi",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reservasi",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reservasi"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/reports\/monthly",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reports\/monthly",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reports",
+                        "monthly"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/api\/admin\/reports\/income",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reports\/income",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reports",
+                        "income"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[GET] \/",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        ""
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/auth\/register\/member",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/auth\/register\/member",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "auth",
+                        "register",
+                        "member"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/auth\/register\/admin-space",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/auth\/register\/admin-space",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "auth",
+                        "register",
+                        "admin-space"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/auth\/login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/auth\/login",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "auth",
+                        "login"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/diskon\/check",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/diskon\/check",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "diskon",
+                        "check"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/reservasi",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/admin\/members",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/members",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "members"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/admin\/spaces",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/spaces",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "spaces"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/admin\/diskon",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/diskon",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "diskon"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/admin\/reservasi\/{id}\/check-in",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reservasi\/{id}\/check-in",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reservasi",
+                        "{id}",
+                        "check-in"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/admin\/reservasi\/{id}\/check-out",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reservasi\/{id}\/check-out",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reservasi",
+                        "{id}",
+                        "check-out"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/upload\/image",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/upload\/image",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "upload",
+                        "image"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/upload\/spaces",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/upload\/spaces",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "upload",
+                        "spaces"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[POST] \/api\/upload\/members",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/upload\/members",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "upload",
+                        "members"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PUT] \/api\/admin\/profile",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/profile",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "profile"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PUT] \/api\/admin\/members\/{id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/members\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "members",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PUT] \/api\/admin\/spaces\/{id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/spaces\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "spaces",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PUT] \/api\/admin\/diskon\/{id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/diskon\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "diskon",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PATCH] \/api\/reservasi\/{id}\/cancel",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/reservasi\/{id}\/cancel",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "reservasi",
+                        "{id}",
+                        "cancel"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[PATCH] \/api\/admin\/reservasi\/{id}\/status",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/reservasi\/{id}\/status",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "reservasi",
+                        "{id}",
+                        "status"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[DELETE] \/api\/admin\/members\/{id}",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/members\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "members",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[DELETE] \/api\/admin\/spaces\/{id}",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/spaces\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "spaces",
+                        "{id}"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[DELETE] \/api\/admin\/diskon\/{id}",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application\/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}\/api\/admin\/diskon\/{id}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "admin",
+                        "diskon",
+                        "{id}"
+                    ]
+                }
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http:\/\/localhost:8000",
+            "type": "string"
+        }
+    ]
+}
