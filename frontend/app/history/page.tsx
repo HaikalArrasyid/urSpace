@@ -203,7 +203,7 @@ export default function HistoryPage() {
                     <div className="flex justify-between items-start gap-4">
                         <div>
                             <h3 className="font-black text-2xl text-text-primary mb-1 group-hover:text-primary transition-colors">{res.space?.nama_space || 'Ruangan Dihapus'}</h3>
-                            <p className="font-mono text-xs font-bold text-text-secondary mb-3">#{res.kode_booking}</p>
+                            <p className="font-mono text-xs font-bold text-text-secondary mb-3">#{res.kode_booking} <span className="font-sans font-medium opacity-70 ml-2">Dipesan: {new Date(res.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':')} WIB, {new Date(res.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span></p>
                             <div className="flex items-center gap-1.5 text-xs font-bold text-text-secondary bg-badge-bg px-2.5 py-1 rounded-md w-fit">
                                 <Clock className="w-3.5 h-3.5" />
                                 <span>{res.tanggal_reservasi} • {res.jam_mulai} ({res.durasi_jam} Jam)</span>

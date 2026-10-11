@@ -54,7 +54,8 @@ export default function ETicketPage({ params }: { params: Promise<{ id: string }
                      </span>
                  </div>
                  <p className="text-xs font-bold text-text-primary/60 uppercase tracking-widest mb-1">No Booking</p>
-                 <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-text-primary">{ticket.kode_booking}</h2>
+                 <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-text-primary mb-2">{ticket.kode_booking}</h2>
+                 <p className="text-xs font-bold text-text-primary/70">Waktu Order: {new Date(ticket.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':')} WIB, {new Date(ticket.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
              </div>
              <div className="hidden sm:block text-right">
                 <div className="w-14 h-14 bg-brand-dark text-white font-black text-3xl flex items-center justify-center rounded-xl ml-auto mb-2">u.</div>

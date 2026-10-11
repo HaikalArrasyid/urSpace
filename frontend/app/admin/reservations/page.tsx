@@ -36,9 +36,19 @@ export default function AdminReservations() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
+    const [month, setMonth] = useState<string>(String(new Date().getMonth() + 1));
+    const [year, setYear] = useState<string>(String(new Date().getFullYear()));
+    const monthsOptions = [{ value: 'all', label: 'Semua Bulan' }, { value: '1', label: 'Januari' }, { value: '2', label: 'Februari' }, { value: '3', label: 'Maret' }, { value: '4', label: 'April' }, { value: '5', label: 'Mei' }, { value: '6', label: 'Juni' }, { value: '7', label: 'Juli' }, { value: '8', label: 'Agustus' }, { value: '9', label: 'September' }, { value: '10', label: 'Oktober' }, { value: '11', label: 'November' }, { value: '12', label: 'Desember' }];
+    const yearsOptions = ['all', ...Array.from({ length: 5 }, (_, i) => String(new Date().getFullYear() - i))];
+
     const loadQueue = async () => {
         try {
-            const res = await apiClient.get('/admin/reservasi');
+            const res = await apiClient.get('/admin/reservasi', {
+                params: {
+                    month,
+                    year
+                }
+            });
             setQueue(res.data.data);
         } catch (e) {
             console.error(e);
@@ -47,7 +57,7 @@ export default function AdminReservations() {
 
     useEffect(() => {
         loadQueue();
-    }, []);
+    }, [month, year]);
 
     const handleAction = async (id: number, action: 'approve' | 'check-in' | 'check-out') => {
         try {
@@ -366,6 +376,16 @@ export default function AdminReservations() {
                 searchValue={search}
                 onSearchChange={setSearch}
                 searchPlaceholder="Cari kode atau nama member..."
+                extraActions={
+                    <div className="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+                        <select value={month} onChange={(e) => setMonth(e.target.value)} className="bg-surface border border-border text-xs font-bold text-text-primary h-10 rounded-lg px-3 outline-none flex-1 md:w-32 shadow-sm focus:border-primary">
+                            {monthsOptions.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
+                        </select>
+                        <select value={year} onChange={(e) => setYear(e.target.value)} className="bg-surface border border-border text-xs font-bold text-text-primary h-10 rounded-lg px-3 outline-none flex-1 md:w-28 shadow-sm focus:border-primary">
+                            {yearsOptions.map(y => <option key={y} value={y}>{y === 'all' ? 'Semua Tahun' : y}</option>)}
+                        </select>
+                    </div>
+                }
             />
 
             <DataTable 

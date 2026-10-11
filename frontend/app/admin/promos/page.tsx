@@ -7,7 +7,8 @@ import { StatCard } from '@/components/admin/StatCard';
 import { Drawer, DrawerFooter } from '@/components/admin/Drawer';
 import { DataTable } from '@/components/admin/DataTable';
 import { FilterTabs } from '@/components/admin/FilterTabs';
-import { Plus, Tag, Zap, Archive, CalendarDays, Ban } from 'lucide-react';
+import { Plus, Tag, Zap, Archive, CalendarDays, Ban, CheckCircle2, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminPromos() {
     const [promos, setPromos] = useState<any[]>([]);
@@ -19,6 +20,13 @@ export default function AdminPromos() {
     // Drawer state
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [editingId, setEditingId] = useState<number | null>(null);
+    
+    // Popup state
+    const [feedback, setFeedback] = useState<{show: boolean, type: 'error' | 'success' | 'warn', title: string, message: string}>({show: false, type: 'error', title: '', message: ''});
+    const showPopup = (type: 'error'|'success'|'warn', title: string, message: string) => setFeedback({show: true, type, title, message});
+    
+    const [confirmDialog, setConfirmDialog] = useState<{show: boolean, id: number | null}>({show: false, id: null});
+
     const [formData, setFormData] = useState({
         nama_diskon: '',
         persentase_diskon: '',
@@ -65,29 +73,43 @@ export default function AdminPromos() {
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
+        const payload = formData;
         try {
             if (editingId) {
-                await apiClient.put(`/admin/diskon/${editingId}`, formData);
+                await apiClient.put(`/admin/diskon/${editingId}`, payload);
+                showPopup('success', 'Berhasil', 'Promo berhasil diperbarui.');
             } else {
-                await apiClient.post('/admin/diskon', formData);
+                await apiClient.post('/admin/diskon', payload);
+                showPopup('success', 'Berhasil', 'Promo berhasil ditambahkan.');
             }
             setIsDrawerOpen(false);
             loadPromos();
+        } catch (err: any) {
+            console.error(err);
+            showPopup('error', 'Gagal', err.response?.data?.message || 'Gagal menyimpan.');
+        }
+    };
+
+    const confirmDelete = (id: number) => {
+        setConfirmDialog({ show: true, id });
+    };
+
+    const executeDelete = async () => {
+        if (!confirmDialog.id) return;
+        try {
+            await apiClient.delete(`/admin/diskon/${confirmDialog.id}`);
+            showPopup('success', 'Terhapus', 'Promo berhasil dihapus.');
+            loadPromos();
         } catch (err) {
             console.error(err);
-            alert('Gagal menyimpan.');
+            showPopup('error', 'Gagal', 'Terjadi kesalahan saat menghapus promo.');
+        } finally {
+            setConfirmDialog({ show: false, id: null });
         }
     };
 
     const handleDelete = async (id: number) => {
-        if (!confirm('Yakin hapus?')) return;
-        try {
-            await apiClient.delete(`/admin/diskon/${id}`);
-            loadPromos();
-        } catch (err) {
-            console.error(err);
-            alert('Gagal menghapus.');
-        }
+        confirmDelete(id);
     };
 
     // Derived Status
@@ -123,7 +145,7 @@ export default function AdminPromos() {
     const simulatedFinal = simBasePrice - simulatedDiscount;
 
     const exportCSV = () => {
-        alert("Downloading CSV...");
+        showPopup('success', 'Exporting...', 'Dokumen CSV sedang diproses dan akan otomatis terunduh.');
     };
 
     const columns = [
@@ -274,6 +296,48 @@ export default function AdminPromos() {
                     <button form="promoForm" type="submit" className="h-12 px-6 rounded-xl font-bold text-sm uppercase tracking-widest bg-primary text-text-primary hover:bg-primary-hover shadow-floating transition-colors">Simpan Promo</button>
                 </DrawerFooter>
             </Drawer>
+
+            {/* Confirmation Dialog Modal */}
+            <AnimatePresence>
+                {confirmDialog.show && (
+                    <motion.div 
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
+                    >
+                        <motion.div 
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            className="bg-surface p-8 rounded-3xl max-w-sm w-full mx-auto shadow-floating border border-border/50 text-center relative overflow-hidden"
+                        >
+                            <h3 className="text-xl font-black text-text-primary mb-2 tracking-tight">Hapus Promo?</h3>
+                            <p className="text-sm font-medium text-text-secondary mb-8 leading-relaxed">
+                                Tindakan ini tidak dapat dibatalkan. Kupon ini tidak akan bisa lagi digunakan oleh member manapun.
+                            </p>
+                            <div className="flex gap-3">
+                                <button onClick={() => setConfirmDialog({show: false, id: null})} className="flex-1 h-12 rounded-xl bg-badge-bg text-text-secondary font-bold hover:bg-border transition-colors">Batal</button>
+                                <button onClick={executeDelete} className="flex-1 h-12 rounded-xl bg-error text-white font-bold hover:bg-red-600 transition-colors shadow-sm">Ya, Hapus</button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Feedback Modal Popup */}
+            <AnimatePresence>
+                {feedback.show && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/40 backdrop-blur-md z-[10000] flex items-center justify-center p-4">
+                        <motion.div initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }} className="bg-surface p-8 rounded-3xl max-w-sm w-full mx-auto shadow-floating border border-border/50 text-center relative overflow-hidden">
+                            <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl -z-10 -translate-y-1/2 translate-x-1/2 ${feedback.type === 'error' ? 'bg-error/10' : feedback.type === 'success' ? 'bg-primary/20' : 'bg-yellow-500/20'}`} />
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 ${feedback.type === 'error' ? 'bg-error/10 text-error' : feedback.type === 'success' ? 'bg-primary/20 text-primary' : 'bg-yellow-500/10 text-yellow-500'}`}>
+                                {feedback.type === 'error' ? <AlertCircle className="w-8 h-8 -ml-1" /> : <CheckCircle2 className="w-8 h-8 -ml-1" />}
+                            </div>
+                            <h3 className="text-xl font-black text-text-primary mb-2 tracking-tight">{feedback.title}</h3>
+                            <p className="text-sm font-medium text-text-secondary mb-8 leading-relaxed">{feedback.message}</p>
+                            <button onClick={() => setFeedback({...feedback, show: false})} className={`w-full h-12 rounded-xl font-bold transition-all outline-none text-white ${feedback.type === 'error' ? 'bg-error hover:bg-red-600' : 'bg-primary text-text-primary hover:bg-primary-hover shadow-sm'}`}>Tutup</button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }

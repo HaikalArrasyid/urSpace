@@ -334,7 +334,7 @@ export default function SpaceDetail({ params }: { params: Promise<{ id: string }
  </div>
  </div>
 
- <p className="mt-4 text-center text-xs text-primary font-bold bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+ <p className="mt-4 text-center text-xs font-bold text-yellow-950 bg-yellow-400/90 p-4 rounded-xl border border-yellow-500 shadow-sm leading-relaxed">
  Silakan lakukan pembayaran langsung di resepsionis pada saat kedatangan. Aplikasi ini tidak memproses pembayaran.
  </p>
 

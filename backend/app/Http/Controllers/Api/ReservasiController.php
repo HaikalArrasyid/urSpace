@@ -71,14 +71,19 @@ class ReservasiController extends Controller
     public function myReservations(Request $request)
     {
         $member = $request->user()->member;
+        
+        $reservations = Reservasi::with('space')->where('id_member', $member->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return $this->successResponse('Berhasil memproses permintaan', $member->reservasis ?? []);
+        return $this->successResponse('Berhasil memproses permintaan', $reservations);
     }
 
     public function history(Request $request)
     {
         $member = $request->user()->member;
-        $query = Reservasi::with('space')->where('id_member', $member->id);
+        $query = Reservasi::with('space')->where('id_member', $member->id)
+            ->orderBy('created_at', 'desc');
 
         if ($request->has('month')) {
             $query->whereMonth('tanggal_reservasi', $request->month);
@@ -131,6 +136,7 @@ class ReservasiController extends Controller
             'security_hash' => $res->security_hash,
             'gateway_node' => $res->gateway_node,
             'qr_serial_token' => $res->qr_serial_token,
+            'created_at' => $res->created_at,
         ];
 
         return $this->successResponse('E-Ticket berhasil dimuat', $payload);
@@ -151,14 +157,15 @@ class ReservasiController extends Controller
     // ADMIN ENDPOINTS
     public function indexAdmin(Request $request)
     {
-        $query = Reservasi::query();
-        if ($request->has('month')) {
+        $query = Reservasi::with(['space', 'member', 'diskon']);
+        
+        if ($request->has('month') && $request->month !== 'all') {
             $query->whereMonth('tanggal_reservasi', $request->month);
         }
-        if ($request->has('year')) {
+        if ($request->has('year') && $request->year !== 'all') {
             $query->whereYear('tanggal_reservasi', $request->year);
         }
-        if ($request->has('status')) {
+        if ($request->has('status') && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
         if ($request->has('id_space')) {
@@ -167,6 +174,8 @@ class ReservasiController extends Controller
         if ($request->has('tanggal')) {
             $query->where('tanggal_reservasi', $request->tanggal);
         }
+        
+        $query->orderBy('created_at', 'desc');
 
         return $this->successResponse('Berhasil memproses permintaan', $query->get());
     }

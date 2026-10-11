@@ -143,18 +143,18 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} whileHover={{ y: -8 }} className="bg-surface/80 backdrop-blur-xl p-8 rounded-3xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-floating transition-all flex flex-col">
-                <div className="text-4xl mb-6">⏳</div>
-                <h3 className="text-2xl font-black text-text-primary mb-2">Pay-as-you-go</h3>
-                <p className="text-text-primary font-bold mb-4">Fokus: <span className="font-medium text-text-secondary">Meeting kilat atau *deep work* sejenak.</span></p>
-                <div className="bg-badge-bg p-4 rounded-xl text-sm text-text-secondary font-medium leading-relaxed mt-auto">Sangat fleksibel, Anda hanya membayar mutlak sesuai jumlah jam yang dihabiskan di ruangan.</div>
+                <div className="text-4xl mb-6">☕</div>
+                <h3 className="text-2xl font-black text-text-primary mb-2">Day Pass</h3>
+                <p className="text-text-primary font-bold mb-4">Fokus: <span className="font-medium text-text-secondary">Bekerja seharian penuh tanpa limitasi durasi habis.</span></p>
+                <div className="bg-badge-bg p-4 rounded-xl text-sm text-text-secondary font-medium leading-relaxed mt-auto">Lebih hemat dari tarif per-jam. Nikmati akses tak terbatas ke area *Pantry* dari pagi hingga tutup.</div>
             </motion.div>
             
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} whileHover={{ y: -8 }} className="bg-gradient-to-br from-primary/10 to-primary/5 backdrop-blur-xl p-8 rounded-3xl border border-primary/20 shadow-[0_8px_30px_rgb(255,213,0,0.1)] hover:shadow-[0_8px_30px_rgb(255,213,0,0.2)] transition-all flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 bg-primary text-text-primary px-4 py-1 font-bold text-[10px] uppercase tracking-widest rounded-bl-xl shadow-sm">Paling Diminati</div>
-                <div className="text-4xl mb-6">☕</div>
-                <h3 className="text-2xl font-black text-text-primary mb-2">Day Pass</h3>
-                <p className="text-text-primary font-bold mb-4">Fokus: <span className="font-medium text-text-secondary">Bekerja seharian penuh tanpa limitasi durasi habis.</span></p>
-                <div className="bg-white/60 p-4 rounded-xl text-sm text-text-secondary font-medium leading-relaxed mt-auto">Lebih hemat dari tarif per-jam. Nikmati akses tak terbatas ke area *Pantry* dari pagi hingga tutup.</div>
+                <div className="text-4xl mb-6">⏳</div>
+                <h3 className="text-2xl font-black text-text-primary mb-2">Hourly (Pay-as-you-go)</h3>
+                <p className="text-text-primary font-bold mb-4">Fokus: <span className="font-medium text-text-secondary">Meeting kilat atau *deep work* sejenak.</span></p>
+                <div className="bg-white/60 p-4 rounded-xl text-sm text-text-secondary font-medium leading-relaxed mt-auto">Sangat fleksibel, Anda hanya membayar mutlak sesuai jumlah jam yang dihabiskan di ruangan.</div>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} whileHover={{ y: -8 }} className="bg-gradient-to-br from-brand-dark to-gray-900 p-8 rounded-3xl border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.1)] hover:shadow-floating transition-all flex flex-col relative overflow-hidden">

@@ -7,7 +7,8 @@ import { StatCard } from '@/components/admin/StatCard';
 import { Drawer, DrawerFooter } from '@/components/admin/Drawer';
 import { DataTable } from '@/components/admin/DataTable';
 import { FilterTabs } from '@/components/admin/FilterTabs';
-import { Box, PackageOpen, CheckCircle, UploadCloud } from 'lucide-react';
+import { Box, PackageOpen, CheckCircle, UploadCloud, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminSpaces() {
     const [spaces, setSpaces] = useState<any[]>([]);
@@ -21,6 +22,13 @@ export default function AdminSpaces() {
     // Drawer state
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [editingId, setEditingId] = useState<number | null>(null);
+
+    // Popup state
+    const [feedback, setFeedback] = useState<{show: boolean, type: 'error' | 'success' | 'warn', title: string, message: string}>({show: false, type: 'error', title: '', message: ''});
+    const showPopup = (type: 'error'|'success'|'warn', title: string, message: string) => setFeedback({show: true, type, title, message});
+    
+    const [confirmDialog, setConfirmDialog] = useState<{show: boolean, id: number | null}>({show: false, id: null});
+
     const [formData, setFormData] = useState({
         nama_space: '',
         tipe: 'desk',
@@ -93,25 +101,34 @@ export default function AdminSpaces() {
 
             if (editingId) {
                 await apiClient.put(`/admin/spaces/${editingId}`, payload);
+                showPopup('success', 'Berhasil', 'Ruangan berhasil diperbarui.');
             } else {
                 await apiClient.post('/admin/spaces', payload);
+                showPopup('success', 'Berhasil', 'Ruangan berhasil ditambahkan.');
             }
             setIsDrawerOpen(false);
             loadSpaces();
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert('Gagal menyimpan. Pastikan semua field terisi benar.');
+            showPopup('error', 'Gagal', err.response?.data?.message || 'Gagal menyimpan. Pastikan semua field terisi benar.');
         }
     };
 
-    const handleDelete = async (id: number) => {
-        if (!confirm('Yakin hapus?')) return;
+    const confirmDelete = (id: number) => {
+        setConfirmDialog({ show: true, id });
+    };
+
+    const executeDelete = async () => {
+        if (!confirmDialog.id) return;
         try {
-            await apiClient.delete(`/admin/spaces/${id}`);
+            await apiClient.delete(`/admin/spaces/${confirmDialog.id}`);
+            showPopup('success', 'Terhapus', 'Ruangan berhasil dihapus.');
             loadSpaces();
         } catch (err) {
             console.error(err);
-            alert('Gagal menghapus.');
+            showPopup('error', 'Gagal', 'Terjadi kesalahan saat menghapus ruangan.');
+        } finally {
+            setConfirmDialog({ show: false, id: null });
         }
     };
 
@@ -191,7 +208,7 @@ export default function AdminSpaces() {
             render: (s: any) => (
                 <div className="flex justify-end gap-3">
                     <button className="text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors" onClick={() => handleOpenDrawer(s)}>Edit</button>
-                    <button className="text-xs font-bold uppercase tracking-widest text-error hover:text-error/80 transition-colors" onClick={() => handleDelete(s.id)}>Hapus</button>
+                    <button className="text-xs font-bold uppercase tracking-widest text-error hover:text-error/80 transition-colors" onClick={() => confirmDelete(s.id)}>Hapus</button>
                 </div>
             )
         }
@@ -311,6 +328,47 @@ export default function AdminSpaces() {
                     <button form="spaceForm" type="submit" className="h-12 px-6 rounded-xl font-bold text-sm uppercase tracking-widest bg-primary text-text-primary hover:bg-primary-hover shadow-floating transition-colors">Simpan Unit</button>
                 </DrawerFooter>
             </Drawer>
+
+            {/* Confirmation Dialog Modal */}
+            <AnimatePresence>
+                {confirmDialog.show && (
+                    <motion.div 
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
+                    >
+                        <motion.div 
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            className="bg-surface p-8 rounded-3xl max-w-sm w-full mx-auto shadow-floating border border-border/50 text-center relative overflow-hidden"
+                        >
+                            <h3 className="text-xl font-black text-text-primary mb-2 tracking-tight">Hapus Ruangan?</h3>
+                            <p className="text-sm font-medium text-text-secondary mb-8 leading-relaxed">
+                                Tindakan ini tidak dapat dibatalkan. Semua data inventaris dan gambar ruangan akan ikut terhapus.
+                            </p>
+                            <div className="flex gap-3">
+                                <button onClick={() => setConfirmDialog({show: false, id: null})} className="flex-1 h-12 rounded-xl bg-badge-bg text-text-secondary font-bold hover:bg-border transition-colors">Batal</button>
+                                <button onClick={executeDelete} className="flex-1 h-12 rounded-xl bg-error text-white font-bold hover:bg-red-600 transition-colors shadow-sm">Ya, Hapus</button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Feedback Modal Popup */}
+            <AnimatePresence>
+                {feedback.show && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/40 backdrop-blur-md z-[10000] flex items-center justify-center p-4">
+                        <motion.div initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }} className="bg-surface p-8 rounded-3xl max-w-sm w-full mx-auto shadow-floating border border-border/50 text-center relative overflow-hidden">
+                            <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl -z-10 -translate-y-1/2 translate-x-1/2 ${feedback.type === 'error' ? 'bg-error/10' : feedback.type === 'success' ? 'bg-primary/20' : 'bg-yellow-500/20'}`} />
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 ${feedback.type === 'error' ? 'bg-error/10 text-error' : feedback.type === 'success' ? 'bg-primary/20 text-primary' : 'bg-yellow-500/10 text-yellow-500'}`}>
+                                {feedback.type === 'error' ? <AlertCircle className="w-8 h-8 -ml-1" /> : <CheckCircle2 className="w-8 h-8 -ml-1" />}
+                            </div>
+                            <h3 className="text-xl font-black text-text-primary mb-2 tracking-tight">{feedback.title}</h3>
+                            <p className="text-sm font-medium text-text-secondary mb-8 leading-relaxed">{feedback.message}</p>
+                            <button onClick={() => setFeedback({...feedback, show: false})} className={`w-full h-12 rounded-xl font-bold transition-all outline-none text-white ${feedback.type === 'error' ? 'bg-error hover:bg-red-600' : 'bg-primary text-text-primary hover:bg-primary-hover shadow-sm'}`}>Tutup</button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

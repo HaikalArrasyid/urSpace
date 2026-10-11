@@ -1,0 +1,26 @@
+{
+  "name": "ukk-reserve",
+  "version": "1.0.0",
+  "description": "A scalable, full-stack coworking space reservation system originally built for the UKK RPL 2024/2025 examination standard. The architecture utilizes a monorepo structure establishing a strict decoupling between the Next.js client application and the Laravel REST API backend.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaikalArrasyid/urSpace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/HaikalArrasyid/urSpace/issues"
+  },
+  "homepage": "https://github.com/HaikalArrasyid/urSpace#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5"
+  }
+}

@@ -11,9 +11,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex-1 bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-200/60 overflow-hidden flex flex-col min-w-0 h-[calc(100vh-2rem)] relative"
+          className="flex-1 bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-200/60 flex flex-col min-w-0 min-h-[calc(100vh-2rem)] relative"
       >
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-8 lg:p-12 lg:px-16 w-full max-w-[1600px] mx-auto">
+        <div className="flex-1 p-8 lg:p-12 lg:px-16 w-full max-w-[1600px] mx-auto">
           {children}
         </div>
       </motion.main>

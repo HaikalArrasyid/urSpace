@@ -16,24 +16,34 @@ class ReservationService
      */
     public function checkAvailability($spaceId, $tanggal, $jamMulai, $durasiJam): bool
     {
+        $space = Space::findOrFail($spaceId);
+        
+        // Desk = sewa kursi (banyak orang bisa barengan sampai batas kapasitas).
+        // Meeting Room / Private Office = booking sewa se-ruangannya (1 booking = fully booked).
+        $isSharedSpace = $space->tipe === 'desk';
+        $kapasitasMaksimal = $isSharedSpace ? $space->kapasitas : 1;
+
         $start = Carbon::parse("$tanggal $jamMulai");
         $end = $start->copy()->addHours((int) $durasiJam);
 
-        // Ambil semua reservasi pada ruangan dan tanggal tersebut yang telah disetujui atau aktif
+        // Ambil semua reservasi pada ruangan dan tanggal tersebut yang telah disetujui, aktif, atau baru saja dipesan (belum dikonfirm)
         $reservations = Reservasi::where('id_space', $spaceId)
             ->where('tanggal_reservasi', $tanggal)
-            ->whereIn('status', ['disetujui', 'aktif'])
+            ->whereIn('status', ['belum_dikonfirm', 'disetujui', 'aktif'])
             ->get();
+
+        $overlappingCount = 0;
 
         foreach ($reservations as $res) {
             $resStart = Carbon::parse($res->tanggal_reservasi . ' ' . $res->jam_mulai);
             $resEnd = Carbon::parse($res->jam_selesai);
 
             // Cek apakah ada irisan waktu
-            // Syarat OVERLAP: Waktu mulai baru < Waktu selesai lama AND Waktu selesai baru > Waktu mulai lama
-            // Jika Waktu mulai baru == Waktu selesai lama, tidak overlap karena tidak ada buffer
             if ($start->lt($resEnd) && $end->gt($resStart)) {
-                return false; // Bertabrakan
+                $overlappingCount++; 
+                if ($overlappingCount >= $kapasitasMaksimal) {
+                    return false; // Slot penuh sesuai tipe booking ruangan
+                }
             }
         }
 

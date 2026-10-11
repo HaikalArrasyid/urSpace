@@ -206,7 +206,7 @@ export default function ProfilePage() {
                   <p className="text-sm font-medium text-text-secondary mt-1">Daftar transaksi dan tiket aktif Anda.</p>
               </div>
               <button 
-                  onClick={() => router.push('/#jelajah')}
+                  onClick={() => router.push('/spaces')}
                   className="h-12 px-6 rounded-xl text-sm font-bold uppercase tracking-widest bg-primary text-text-primary hover:bg-primary-hover shadow-floating transition-colors shrink-0"
               >
                   Mulai Reservasi →
@@ -233,7 +233,7 @@ export default function ProfilePage() {
                         <div className="absolute top-0 right-0">    
                             <span className="text-[10px] font-bold uppercase tracking-widest bg-badge-bg text-text-secondary px-2 py-1 rounded-md">{res.status.replace('_', ' ')}</span>
                         </div>
-                        <p className="font-mono text-xs font-bold text-text-secondary mb-1">#{res.kode_booking}</p>
+                        <p className="font-mono text-xs font-bold text-text-secondary mb-1">#{res.kode_booking} <span className="font-sans font-medium opacity-70 ml-1 block sm:inline mt-1 sm:mt-0">Dipesan: {new Date(res.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':')} WIB, {new Date(res.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span></p>
                         <h3 className="font-black text-xl text-text-primary mb-1">{res.tanggal_reservasi}</h3>
                         <p className="text-sm font-medium text-text-secondary font-mono mb-4">{res.jam_mulai} ({res.durasi_jam} Jam)</p>
                         <p className="font-black text-text-primary text-2xl">Rp {res.total_bayar.toLocaleString()}</p>

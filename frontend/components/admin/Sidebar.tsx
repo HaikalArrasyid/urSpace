@@ -45,7 +45,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-full md:w-[280px] bg-transparent flex flex-col shrink-0 h-[calc(100vh-2rem)]">
+    <aside className="w-full md:w-[280px] bg-transparent flex flex-col shrink-0 md:sticky md:top-4 h-[calc(100vh-2rem)]">
         <div className="p-6 mb-4">
             <h2 className="text-3xl font-black tracking-tighter text-slate-800">urSpace<span className="text-primary">.hq</span></h2>
             <p className="text-[10px] uppercase tracking-widest text-slate-500 mt-2 font-bold">Admin Workspace</p>
