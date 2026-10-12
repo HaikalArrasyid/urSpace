@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  e2e-testing-workflow:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
