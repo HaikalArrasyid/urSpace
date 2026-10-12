@@ -4,6 +4,9 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  # workflow_dispatch: memungkinkan kita menjalankan test secara manual 
+  # lewat tombol "Run workflow" di GitHub Actions UI tanpa harus selalu git push
+  workflow_dispatch:
 
 jobs:
   test:
