@@ -4,24 +4,56 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # 1. Download code
+      - uses: actions/checkout@v4
+
+      # 2. Start semua services via Docker
+      - name: Start services
+        run: docker compose up -d --build
+
+      # 3. Tunggu MySQL ready
+      - name: Wait for MySQL
+        run: |
+          until docker compose exec mysql mysqladmin ping -h localhost --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+
+      # 4. Setup database (migrate + seed)
+      - name: Setup database
+        run: |
+          docker compose exec backend php artisan migrate --force
+          docker compose exec backend php artisan db:seed --force
+          docker compose exec backend php artisan storage:link
+
+      # 5. Setup Playwright
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      # 6. Run tests
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      # 7. Upload report
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      # 8. Cleanup
+      - name: Stop services
+        if: always()
+        run: docker compose down

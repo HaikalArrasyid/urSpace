@@ -1,0 +1,92 @@
+# ============================================================================
+# DOCKER COMPOSE — Orkestrator semua container
+# ============================================================================
+# File ini yang nge-define semua "kotak" (container) yang kita butuhkan
+# dan gimana mereka saling terhubung.
+
+services:
+
+  # ==========================================================================
+  # CONTAINER 1: MySQL Database
+  # ==========================================================================
+  # Ini database server. Kita ga perlu bikin Dockerfile karena langsung
+  # pakai official image dari Docker Hub (mysql:8.0).
+  mysql:
+    image: mysql:8.0
+    # restart: unless-stopped → kalau container crash, otomatis restart.
+    # Kecuali kalau kamu SENGAJA matiin pakai `docker compose down`.
+    restart: unless-stopped
+    environment:
+      # Environment variables ini dipakai MySQL image waktu pertama kali start
+      # untuk bikin database dan set password.
+      MYSQL_DATABASE: ukk_reserve
+      MYSQL_ROOT_PASSWORD: password
+      # MYSQL_ROOT_PASSWORD wajib di-set. Kita pakai "password" untuk development.
+      # Di production, ganti ke password yang kuat!
+    ports:
+      # "3306:3306" → mapping port.
+      # Format: HOST_PORT:CONTAINER_PORT
+      # Artinya: akses port 3306 di laptop kamu = diterusin ke port 3306 di container.
+      - "3306:3306"
+    volumes:
+      # Volume → supaya data MySQL PERSIST (ga hilang waktu container dimatiin).
+      # Tanpa volume, setiap `docker compose down` = database kosong lagi.
+      # "mysql_data" adalah nama volume-nya (didefinisikan di bawah).
+      # "/var/lib/mysql" adalah folder di dalam container tempat MySQL simpan data.
+      - mysql_data:/var/lib/mysql
+    # healthcheck → Docker akan CEK berkala apakah MySQL udah ready.
+    # Container lain yang depends_on MySQL bisa tunggu sampai healthy.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================================================
+  # CONTAINER 2: Laravel Backend
+  # ==========================================================================
+  backend:
+    # build: → bilang Docker untuk BUILD image dari Dockerfile.
+    # context: ./backend → folder yang dijadikan "sumber" build.
+    # dockerfile: Dockerfile → nama file resep-nya.
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # env_file → load environment variables dari file.
+    # Ini alternatif dari nulis satu-satu di `environment:`.
+    # Kita pakai file terpisah karena Laravel butuh BANYAK env variables.
+    env_file:
+      - ./backend/.env.docker
+    # depends_on → JANGAN start backend SEBELUM MySQL HEALTHY.
+    # Ini penting karena Laravel butuh MySQL untuk migrate.
+    # condition: service_healthy → tunggu sampai healthcheck MySQL PASS.
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # ==========================================================================
+  # CONTAINER 3: Next.js Frontend
+  # ==========================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # Frontend depends on backend karena dia akses API.
+    # Tapi ga perlu "service_healthy" karena frontend bisa start duluan
+    # dan retry API calls nanti.
+    depends_on:
+      - backend
+
+# ============================================================================
+# VOLUMES
+# ============================================================================
+# Definisi volume yang dipakai di atas.
+# Docker akan manage storage-nya otomatis.
+volumes:
+  mysql_data:
